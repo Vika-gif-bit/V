@@ -1,0 +1,66 @@
+<a href="#" class="social-link" title="Facebook">📘</a>
+                <a href="#" class="social-link" title="Twitter">🐦</a>
+                <a href="#" class="social-link" title="LinkedIn">💼</a>
+                <a href="#" class="social-link" title="YouTube">📹</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Всі права захищено</p>
+        </div>
+    </div>
+
+    <script>
+        // Додаємо інтерактивність
+        document.addEventListener('DOMContentLoaded', function() {
+            // Анімація при кліку на кнопки
+            const buttons = document.querySelectorAll('.link-button, .social-link');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Якщо посилання не встановлено, показуємо повідомлення
+                    if (this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                        alert('Будь ласка, встановіть посилання для цієї кнопки');
+                    }
+                    
+                    // Додаємо ефект пульсації
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+
+            // Ефект parallax для фону
+            document.addEventListener('mousemove', function(e) {
+                const container = document.querySelector('.container');
+                const x = (e.clientX - window.innerWidth / 2) / 50;
+                const y = (e.clientY - window.innerHeight / 2) / 50;
+                
+                container.style.transform = translate(${x}px, ${y}px);
+            });
+
+            // Анімація появи елементів при скролі
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Спостерігаємо за всіма кнопками
+            buttons.forEach(button => {
+                observer.observe(button);
+            });
+        });
+    </script>
+</body>
+</html>
